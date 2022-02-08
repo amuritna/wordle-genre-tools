@@ -1,6 +1,11 @@
 import sympy
 
-# argument: set, empty by default, in strings
+"""
+Generates a prime number with five unique digits.
+@wantedDigits Only print if it features digits included in this set. Digits must be as strings. Empty set by default.
+
+Example usages: generateStarter(), generateStarter({'1'}), generateStarter({'8', '7', '0,'}), generateStarter(set("123"))
+"""
 def generateStarter(wantedDigits={}):
 
     # no specific wanted digits
@@ -11,7 +16,7 @@ def generateStarter(wantedDigits={}):
 
             # print if all digits are unique
             if len(set(str(i))) == 5:
-                print(i)
+                print(i, end=", ")
     
     else:
 
@@ -21,9 +26,5 @@ def generateStarter(wantedDigits={}):
             gen = set(str(i))
 
             if len(gen) == 5 and wantedDigits.issubset(gen):
-                print(i)
+                print(i, end=", ")
 
-# example usages:
-# generateStarter()
-# generateStarter({'1'})
-# generateStarter({'8', '7', '0', '1'})
