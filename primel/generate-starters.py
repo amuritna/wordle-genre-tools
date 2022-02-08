@@ -27,4 +27,3 @@ def generateStarter(wantedDigits={}):
 
             if len(gen) == 5 and wantedDigits.issubset(gen):
                 print(i, end=", ")
-
