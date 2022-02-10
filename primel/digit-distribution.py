@@ -3,6 +3,7 @@ import sympy
 
 # string keys because we'll be iterating through strings later
 digitCount = dict([(str(i), 0) for i in range(10)])
+digitRepeats = dict([(str(i), 0) for i in range(10)])
 
 # dictionary of dicts
 digitDistribution = dict(
@@ -15,18 +16,32 @@ digitDistribution = dict(
     )
 
 counter = 0
+repeatedCounter = 0
 
 # iterate through all 5-digit primes (assumption: no zeroes at the beginning of the number)
 for i in sympy.primerange(10000, 100000):
+
     stringified = str(i)
 
     for j in range(5):
         digitCount[stringified[j]] += 1
         digitDistribution[str(j)][stringified[j]] += 1
 
+    if len(set(stringified)) < 5:
+        seen = set()
+        duplicatedDigits = set([digit for digit in stringified if digit in seen or seen.add(digit)])
+        
+        for dupe in duplicatedDigits:
+            digitRepeats[dupe] += 1
+
+        repeatedCounter += 1
+
     counter += 1
 
-print("\nOccurence of each digit:\n")
+print(f"\n{repeatedCounter} of the primes have repeating digits ({repeatedCounter/counter*100}%)\n")
+print("\nAmount of primes which has these digits as repeating digits:\n")
+print(digitRepeats)
+print("\n\nOccurence of each digit:\n")
 print(digitCount)
 print("\n\nDistribution of each digit:\n")
 print(digitDistribution)
@@ -34,6 +49,14 @@ print(f'\nFound {counter} eligible primes.\n')
 
 """
 RESULT:
+
+5834 of the primes have repeating digits (69.75965562597153%)
+
+
+Amount of primes which has these digits as repeating digits:
+
+{'0': 234, '1': 1154, '2': 472, '3': 1080, '4': 474, '5': 470, '6': 448, '7': 1095, '8': 405, '9': 1054}
+
 
 Occurence of each digit:
 
